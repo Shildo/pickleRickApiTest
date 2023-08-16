@@ -29,7 +29,7 @@ export default function MainNavigator(){
                 tabBarShowLabel: false, 
                 tabBarShowIcon: true,
                 tabBarStyle: { 
-                    height: '8%', 
+                    height: '7%',
                     backgroundColor: '#38445D',
                 },
                 tabBarIndicatorStyle: {

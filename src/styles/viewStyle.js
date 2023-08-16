@@ -18,5 +18,6 @@ export const viewStyles = StyleSheet.create ({
         marginLeft: '2%',
         marginRight: '2%',
         marginBottom: '2%',
+        elevation: 3, 
     },
 });
