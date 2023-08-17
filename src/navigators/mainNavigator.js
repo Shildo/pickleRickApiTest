@@ -25,16 +25,15 @@ export default function MainNavigator(){
                 },
                 tabBarActiveTintColor: 'white',
                 tabBarInactiveTintColor: 'grey',
-                swipeEnabled: false,
                 tabBarShowLabel: false, 
                 tabBarShowIcon: true,
                 tabBarStyle: { 
-                    height: '7%',
+                    height: '9%',
                     backgroundColor: '#38445D',
                 },
                 tabBarIndicatorStyle: {
                     backgroundColor: '#0053FF',
-                    height: '4%',
+                    height: '1%',
                     marginLeft: '10%',
                     marginRight: '-32%',
                     marginBottom: '2%',

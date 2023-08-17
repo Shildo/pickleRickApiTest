@@ -7,7 +7,6 @@ export const imageStyle = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 15,
         alignSelf: 'center',
-        marginTop: '5%',
-        
+        marginTop: '5%',  
     }
 }); 
