@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const textStyles = StyleSheet.create ({
+export const textStyle = StyleSheet.create ({
     titleText: {
         color: 'white',
         fontSize: 38,

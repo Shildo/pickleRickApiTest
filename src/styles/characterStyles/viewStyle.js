@@ -1,8 +1,6 @@
 import { StyleSheet } from "react-native"
 
-export const viewStyles = StyleSheet.create ({
-    titleView: {
-    },
+export const viewStyle = StyleSheet.create ({
     container: {
         flex: 1,
         alignItems: 'center',

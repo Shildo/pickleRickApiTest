@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { View, FlatList, Text, Image } from 'react-native';
-import { viewStyles } from '../styles/viewStyle';
-import { textStyles } from '../styles/textStyle';
-import { flatListStyle } from '../styles/flatListStyle';
-import { imageStyle } from '../styles/imageStyle';
+import { viewStyle } from '../styles/characterStyles/viewStyle';
+import { textStyle } from '../styles/characterStyles/textStyle';
+import { flatListStyle } from '../styles/characterStyles/flatListStyle';
+import { imageStyle } from '../styles/characterStyles/imageStyle';
 
 const apiURL = 'https://rickandmortyapi.com/api/character/?page=1';
 
@@ -12,17 +12,17 @@ const RenderList = ({ item }) => {
         : item.status === 'Alive' ? 'green' : 'yellow';
 
     return (
-        <View style={ viewStyles.cardContainer } key={ item.key }>
+        <View style={ viewStyle.cardContainer } key={ item.key }>
             <Image style={ imageStyle.cardImage } 
                 source={{ uri: item.image }}
             />
-            <Text style={ textStyles.nameText }>
+            <Text style={ textStyle.nameText }>
                 { item.name } 
             </Text>
-            <Text style={ textStyles.speciesText }>
+            <Text style={ textStyle.speciesText }>
                 {item.species}
             </Text>
-            <Text style={ textStyles.statusText }>
+            <Text style={ textStyle.statusText }>
                 { item.status } { ' ' }
                 <View style={{ 
                 backgroundColor: color, 
@@ -39,59 +39,65 @@ export function CharacterScreen(){
   
     const [data, setData] = useState([]);
     const [next, setNext] = useState([]);
+    const [first, setFirst] = useState([]);
   
     try {
         useEffect(() => {
-        fetch(apiURL,{
+            fetch(apiURL,{
             method: 'GET',
-        })
-        .then(res => res.json())
-        .then(res => {
-            setData(res.results);
-            setNext(res.info.next);
-        })
+            })
+            .then(res => res.json())
+            .then(res => {
+                setData(res.results);
+                setNext(res.info.next);
+                setFirst(false);
+            })
         }, [])
     }  catch(error){
         console.log(error);
     }
     
     const handleOnEndReached = () => {
-        if (next != null){
-            try {
-                fetch(next,{
-                method: 'GET',
-                })
-                .then(res => res.json())
-                .then(res => {
-                    setData([...data, ...res.results])
-                    if (next != null){
-                        setNext(res.info.next);
-                    }
-                })
-            } catch(error){
-                console.log(error);
-            } 
+        if (!first){
+            if (next != null){
+                try {
+                    fetch(next,{
+                    method: 'GET',
+                    })
+                    .then(res => res.json())
+                    .then(res => {
+                        setData([...data, ...res.results])
+                        if (next != null){
+                            setNext(res.info.next);
+                        }
+                    })
+                } catch(error){
+                    console.log(error);
+                } 
+            }
         }
         return;
     }
 
     return (        
-        <View style={ viewStyles.container }>
-        <FlatList
-            ListHeaderComponent={
-            <View style={ viewStyles.titleView }>
-                <Text style={ textStyles.titleText }>Rick & Morty</Text>
-                <Text style={ textStyles.titleText }>API test</Text>
-            </View>
-            }
-            contentContainerStyle={ flatListStyle.container }
-            style={{ flex: 1 }}
-            numColumns={ 2 }
-            data={ data }
-            renderItem={({ item }) =>  <RenderList item={ item }/>} 
-            onEndReached={handleOnEndReached}
-            onEndReachedThreshold={0.5}
-        />
+        <View style={ viewStyle.container }>
+            <FlatList
+                ListHeaderComponent={
+                <View>
+                    <Text style={ textStyle.titleText }>Rick & Morty</Text>
+                    <Text style={ textStyle.titleText }>API test</Text>
+                </View>
+                }
+                ListHeaderComponentStyle={{ marginBottom: '10%' }}
+                contentContainerStyle={ flatListStyle.container }
+                showsVerticalScrollIndicator={ false }
+                style={{ flex: 1 }}
+                numColumns={ 2 }
+                data={ data }
+                renderItem={({ item }) =>  <RenderList item={ item }/>} 
+                onEndReached={handleOnEndReached}
+                onEndReachedThreshold={0.5}
+            />
         </View>
     )
 }

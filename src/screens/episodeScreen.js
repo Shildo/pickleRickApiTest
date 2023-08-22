@@ -1,9 +1,9 @@
 import { View } from 'react-native';
-import { viewStyles } from '../styles/viewStyle';
+import { viewStyle } from '../styles/episodeStyles/viewStyle';
 
 export function EpisodeScreen(){
     return (
-        <View style={ viewStyles.container }>
+        <View style={ viewStyle.container }>
         </View>
     )
 }
